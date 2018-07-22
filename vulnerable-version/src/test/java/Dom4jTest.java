@@ -36,6 +36,28 @@ public class Dom4jTest {
         assertThat(document.asXML(), containsString(injectedElement));
     }
 
+    @Test
+    public void testCommentOtherElementsOnAttributeName() throws IOException {
+        Document document = DocumentHelper.createDocument();
+        Element root = document.addElement("root");
+
+        String injectedElement = "<author name=\"hack\" location=\"World\">true</author>";
+
+        Element author = root.addElement("author")
+                .addAttribute("name=\"hack\" location=\"World\">true</author><!-- author name", "James")
+                .addAttribute("location", "UK")
+                .addText("James Strachan");
+
+        Element author2 = root.addElement("author")
+                .addAttribute("--><author name", "Bob")
+                .addAttribute("location", "US")
+                .addText("Bob McWhirter");
+
+        writeFile(document);
+
+        assertThat(document.asXML(), containsString(injectedElement));
+    }
+
     private void writeFile(Document document) throws IOException {
         try (FileWriter fileWriter = new FileWriter("output.xml")) {
             XMLWriter writer = new XMLWriter(fileWriter, OutputFormat.createPrettyPrint());
