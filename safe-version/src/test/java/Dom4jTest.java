@@ -19,7 +19,7 @@ public class Dom4jTest {
         Document document = DocumentHelper.createDocument();
         Element root = document.addElement("root");
 
-        String injectedTag = "<author name=\"hack\" location=\"World\">true</author>";
+        String injectedElement = "<author name=\"hack\" location=\"World\">true</author>";
 
         Element author = root.addElement("author")
                 .addAttribute("name=\"hack\" location=\"World\">true</author><author name", "James")
@@ -33,7 +33,7 @@ public class Dom4jTest {
 
         writeFile(document);
 
-        assertThat(document.asXML(), containsString(injectedTag));
+        assertThat(document.asXML(), containsString(injectedElement));
     }
 
     private void writeFile(Document document) throws IOException {
@@ -45,7 +45,7 @@ public class Dom4jTest {
     }
 
     @Test
-    public void testXMLInjectionOnTagName() throws IOException {
+    public void testXMLInjectionOnElementName() throws IOException {
         Document document = DocumentHelper.createDocument();
         Element root = document.addElement("root");
 
