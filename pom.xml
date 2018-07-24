@@ -11,6 +11,7 @@
     <modules>
         <module>vulnerable-version</module>
         <module>safe-version</module>
+        <module>legacy-version</module>
     </modules>
 
     <build>
